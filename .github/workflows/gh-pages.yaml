@@ -36,7 +36,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16"
-  
+
       - name: Install FFmpeg
         run: |
           sudo apt-get update
@@ -163,14 +163,14 @@ jobs:
           replace: '$1/${{ env.REF_URL_SEGMENT }}/$2'
           include: "cleanlab-docs/**/*.html"
           regex: true
-      
+
       - name: Deploy
-        if: ${{ (github.ref == 'refs/heads/master') || (github.ref_type == 'tag') }}
+        if: ${{ (github.ref == 'refs/heads/gh-deploy') || (github.ref_type == 'tag') }}
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: ${{ github.repository_owner }}/cleanlab-docs
-          publish_branch: master
+          publish_branch: gh-deploy
           publish_dir: cleanlab-docs
           keep_files: true
           exclude_assets: ""
